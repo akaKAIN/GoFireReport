@@ -20,3 +20,6 @@ Image/
 *.jpg
 config.go
 *.log
+
+# temp Glade-forms
+*.glade~
