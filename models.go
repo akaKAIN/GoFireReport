@@ -1,5 +1,12 @@
 package main
 
+import "sync"
+
+type AllElements struct {
+	List []Element
+	m 	*sync.Mutex
+}
+
 type Element struct {
 	Name       string
 	Id         string
