@@ -15,7 +15,7 @@ type Logger struct {
 }
 
 var (
-	fileName = "error.log"
+	fileName  = "error.log"
 	filePath  = filepath.Join("source", "logs", fileName)
 	inFile, _ = os.OpenFile(filePath, os.O_APPEND|os.O_RDWR|os.O_CREATE, os.ModePerm)
 	LogThis   = log.New(inFile, fmt.Sprint(time.Now().Format("02Jan 15:04:05 ")), 0)
