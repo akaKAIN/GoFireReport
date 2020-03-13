@@ -1,18 +1,54 @@
 package main
 
-import "sync"
+import (
+	"fmt"
+	"github.com/gotk3/gotk3/gtk"
+)
 
-type AllElements struct {
-	List []Element
-	m 	*sync.Mutex
+// Словарь где ключи - ID элементов, а значения - сами элементы окна
+type ElemMap map[string]Element
+
+// Метод добавления элемента в словарь
+func (em *ElemMap) Add(element Element){
+	(*em)[element.Id] = element
 }
 
 type Element struct {
 	Name       string
 	Id         string
 	ElemType   interface{}
-	ErrorMsg   string
 	Signal     string
-	IsSelected bool
-	Handler    func(interface{}) interface{}
+	Builder    *gtk.Builder
 }
+
+func (e *Element) GetEntry() (*gtk.Entry, error) {
+	//Метод получения поля ввода по ID структуры
+	obj, err := e.Builder.GetObject(e.Id)
+	if err != nil {
+		err = fmt.Errorf("Ошибка получения поля ввода %q. Error: %s\n", e.Id, err)
+		return nil, err
+	}
+	return obj.(*gtk.Entry), nil
+}
+
+func (e *Element) GetButton() (*gtk.Button, error) {
+	//Метод получения кнопки по ID структуры
+	obj, err := e.Builder.GetObject(e.Id)
+	if err != nil {
+		err = fmt.Errorf("Ошибка получения кнопки %q. Error: %s\n", e.Id, err)
+		return nil, err
+	}
+	return obj.(*gtk.Button), nil
+}
+
+func (e *Element) GetLabel() (*gtk.Label, error) {
+	//Метод получения текстового поля по ID структуры
+	obj, err := e.Builder.GetObject(e.Id)
+	if err != nil {
+		err = fmt.Errorf("Ошибка получения текстового поля %q. Error: %s\n", e.Id, err)
+		return nil, err
+	}
+	return obj.(*gtk.Label), nil
+}
+
+
