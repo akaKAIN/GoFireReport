@@ -24,9 +24,8 @@ func SignalPushButton(b *gtk.Builder, buttonID string) error {
 	}
 	button := obj.(*gtk.Button)
 
-
-	_, err = button.Connect("clicked", func(){
-		fmt.Printf("Получена кнопка")
+	_, err = button.Connect("clicked", func() {
+		fmt.Printf("Получена кнопка\n")
 	})
 	if err != nil {
 		return fmt.Errorf("Получение селектора кнопки: %s\n", err)
