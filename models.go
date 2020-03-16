@@ -51,4 +51,24 @@ func (e *Element) GetLabel() (*gtk.Label, error) {
 	return obj.(*gtk.Label), nil
 }
 
+func (e *Element) GetTextArea() (*gtk.TextView, error){
+	//Метод получения текстового поля по ID структуры
+	obj, err := e.Builder.GetObject(e.Id)
+	if err != nil {
+		err = fmt.Errorf("Ошибка получения text %q. Error: %s\n", e.Id, err)
+		return nil, err
+	}
+	return obj.(*gtk.TextView), nil
+
+}
+
+func (e *Element) GetTextBuffer() (*gtk.TextBuffer, error){
+	//Метод получения текстового буфера по ID структуры
+	obj, err := e.Builder.GetObject(e.Id)
+	if err != nil {
+		err = fmt.Errorf("Ошибка получения text %q. Error: %s\n", e.Id, err)
+		return nil, err
+	}
+	return obj.(*gtk.TextBuffer), nil
+}
 
