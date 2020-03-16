@@ -6,8 +6,9 @@ import (
 )
 
 func main() {
+	templateName := "create_file_form.glade"
 	// Задаем путь до шаблона окна
-	template := filepath.Join("source", "templates", "form_1.glade")
+	template := filepath.Join("source", "templates", templateName)
 
 	// Инициализируем GTK.
 	gtk.Init(nil)
@@ -20,6 +21,8 @@ func main() {
 	err = builder.AddFromFile(template)
 	MyLogger.CheckErr("Открытие формы", err)
 
+	InitGlobalList(builder)
+
 	// Получаем главное окно
 	obj, err := builder.GetObject("main_window")
 	MyLogger.CheckErr("Получение селектора главного окна", err)
@@ -29,17 +32,13 @@ func main() {
 	// закрытии окна.
 	win := obj.(*gtk.Window)
 	win.SetTitle("InfoDev: Excel Aggregate ©")
+
 	go func() {
 		err = SignalCloseWindow(win)
 		MyLogger.CheckErr("", err)
 	}()
 
-	// Создание сигнала для нажатия кнопки
-	go func() {
-		err = SignalPushButton(builder, "button_1")
-		MyLogger.CheckErr("", err)
-	}()
-
+	win.SetDefaultSize(350, 280)
 	// Отображение всех виджетов в окне
 	win.ShowAll()
 
