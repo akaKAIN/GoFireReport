@@ -5,13 +5,11 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"sync"
 	"time"
 )
 
 type Logger struct {
 	MyNewLog *log.Logger
-	m        *sync.Mutex
 }
 
 var (
@@ -24,8 +22,6 @@ var (
 
 func (l *Logger) CheckErr(prefix string, err error) {
 	if err != nil {
-		l.m.Lock()
 		l.MyNewLog.Printf("%s: %v\n", prefix, err)
-		l.m.Unlock()
 	}
 }
