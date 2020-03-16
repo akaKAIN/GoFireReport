@@ -87,6 +87,9 @@ func InitGlobalList(builder *gtk.Builder) {
 	buf, err := textBuffer.GetTextBuffer()
 	MyLogger.CheckErr("", err)
 
+	//w, err := builder.GetObject("viewport")
+	//MyLogger.CheckErr("", err)
+
 	_, err = btnCreate.Connect(createButton.Signal, func() {
 		inputPath, err := input.GetText()
 		MyLogger.CheckErr("Get text from input field", err)
@@ -102,13 +105,10 @@ func InitGlobalList(builder *gtk.Builder) {
 				resultText = resultText + f.Name() + "\n"
 			}
 		}
-
 		buf.SetText(resultText)
-
 		dirList.SetBuffer(buf)
 		fmt.Println("Done")
 	})
-
 }
 
 func GetDirList(path string) []os.FileInfo {

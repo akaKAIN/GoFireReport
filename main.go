@@ -6,8 +6,10 @@ import (
 )
 
 func main() {
-	templateName := "create_file_form.glade"
+	//templateName := "create_file_form.glade"
+	templateName := "test_form_three.glade"
 	// Задаем путь до шаблона окна
+
 	template := filepath.Join("source", "templates", templateName)
 
 	// Инициализируем GTK.
